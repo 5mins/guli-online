@@ -13,6 +13,7 @@ import javax.swing.*;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"me.lzh"})
+//@EnableSwagger2
 public class EduApplication {
 
     public static void main(String[] args) {
