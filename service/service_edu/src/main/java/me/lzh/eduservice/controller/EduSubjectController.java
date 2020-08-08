@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.lzh.common.utils.commonResult.R;
 import me.lzh.eduservice.entity.subject.OneSubject;
 import me.lzh.eduservice.service.EduSubjectService;
+import me.lzh.servicebase.exceptionhandler.GuliException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,7 @@ public class EduSubjectController {
             return R.ok();
         }else{
             log.error("MultipartFile is null !");
-            return R.error().message("MultipartFile null ");
+            throw new GuliException(20001,"MultipartFile is null !");
         }
 
     }
