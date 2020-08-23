@@ -28,7 +28,7 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir("D:\\Codes\\GithubProject\\guli-online\\service\\service_edu" + "/src/main/java");
 
-        gc.setAuthor("testjava");
+        gc.setAuthor("codeGenerator");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
 
