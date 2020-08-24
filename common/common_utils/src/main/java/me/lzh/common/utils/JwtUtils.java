@@ -50,6 +50,12 @@ public class JwtUtils {
         return JwtToken;
     }
 
+    /**
+     *
+     * @param jwtInfo
+     * @param expire  过期时间 秒 604800 = 7day
+     * @return
+     */
     public static String getJwtToken(JwtInfo jwtInfo, int expire){
 
         String JwtToken = Jwts.builder()
@@ -111,14 +117,29 @@ public class JwtUtils {
      * @param request
      * @return
      */
-    public static JwtInfo getMemberIdByJwtToken(HttpServletRequest request) {
+    public static String getMemberIdByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
         if(StringUtils.isEmpty(jwtToken)) {
             return null;
         }
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         Claims claims = claimsJws.getBody();
-//        return (String)claims.get("id");
+       return (String)claims.get("id");
+
+    }
+
+    /**
+     * 根据token字符串获取会员信息
+     * @param request
+     * @return
+     */
+    public static JwtInfo getMemberInfwByJwtToken(HttpServletRequest request) {
+        String jwtToken = request.getHeader("token");
+        if(StringUtils.isEmpty(jwtToken)) {
+            return null;
+        }
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
+        Claims claims = claimsJws.getBody();
         JwtInfo jwtInfo = new JwtInfo(claims.get("id").toString(), claims.get("nickname").toString(), claims.get("avatar").toString());
         return jwtInfo;
     }

@@ -80,23 +80,22 @@ public class EduCommentController {
                   @RequestParam(value="teacherId",required=true)String teacherId,
                   @RequestParam(value="courseId",required=true)String courseId,
                   HttpServletRequest request) {
-//        JwtInfo jwtToken = JwtUtils.getMemberIdByJwtToken(request);
-//        if(StringUtils.isEmpty(jwtToken)) {
-//            return R.error().code(28004).message("请登录");
-//        }
+        JwtInfo jwtToken = JwtUtils.getMemberInfwByJwtToken(request);
+        if(StringUtils.isEmpty(jwtToken)) {
+            return R.error().code(28004).message("请登录");
+        }
         EduComment comment = new EduComment();
-//        comment.setMemberId(jwtToken.getId());
-        R result = ucenterClient.getUserInfoOrder("1");
-//        R result = ucenterClient.getUserInfoOrder(jwtToken.getId());
+        comment.setMemberId(jwtToken.getId());
+//        R result = ucenterClient.getUserInfoOrder("1");
+        R result = ucenterClient.getUserInfoOrder(jwtToken.getId());
         Map<String, Object> userInfo = result.getData();
 
         LinkedHashMap userInfo1 = (LinkedHashMap)userInfo.get("userInfo");
-       // Collection<Object> values = userInfo.values();
         String nickname = (String)userInfo1.get("nickname");
         String avatar = (String)userInfo1.get("avatar");
         comment.setNickname(nickname);
         comment.setAvatar(avatar);
-        
+
         //TOdo 这里最好加一个判断courseId和teacherId的有效性
         comment.setContent(content);
         comment.setCourseId(courseId);

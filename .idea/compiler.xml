@@ -11,6 +11,7 @@
         <module name="service_oss" />
         <module name="myTools" />
         <module name="service_base" />
+        <module name="service_order" />
         <module name="service_cms" />
         <module name="service_msm" />
         <module name="service_vod" />
@@ -27,6 +28,7 @@
       <module name="service_cms" target="1.8" />
       <module name="service_edu" target="1.8" />
       <module name="service_msm" target="1.8" />
+      <module name="service_order" target="1.8" />
       <module name="service_oss" target="1.8" />
       <module name="service_ucenter" target="1.8" />
       <module name="service_vod" target="1.8" />
@@ -40,6 +42,7 @@
       <module name="service_cms" options="-parameters" />
       <module name="service_edu" options="-parameters" />
       <module name="service_msm" options="-parameters" />
+      <module name="service_order" options="-parameters" />
       <module name="service_oss" options="-parameters" />
       <module name="service_ucenter" options="-parameters" />
       <module name="service_vod" options="-parameters" />

@@ -3,6 +3,7 @@ package me.lzh.educenter.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import me.lzh.common.utils.JwtInfo;
 import me.lzh.common.utils.JwtUtils;
 import me.lzh.educenter.entity.UcenterMember;
 import me.lzh.educenter.entity.vo.LoginVo;
@@ -69,7 +70,8 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
 
         //登录成功
         //生成token字符串，使用jwt工具类
-        String jwtToken = JwtUtils.getJwtToken(mobileMember.getId(), mobileMember.getNickname());
+        JwtInfo jwtInfo = new JwtInfo(mobileMember.getId(), mobileMember.getNickname(),mobileMember.getAvatar());
+        String jwtToken = JwtUtils.getJwtToken(jwtInfo,604800);
         return jwtToken;
     }
 
