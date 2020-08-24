@@ -2,6 +2,7 @@ package me.lzh.educenter.service;
 
 import me.lzh.educenter.entity.UcenterMember;
 import com.baomidou.mybatisplus.extension.service.IService;
+import me.lzh.educenter.entity.vo.LoginVo;
 import me.lzh.educenter.entity.vo.RegisterVo;
 
 /**
@@ -15,8 +16,10 @@ import me.lzh.educenter.entity.vo.RegisterVo;
 public interface UcenterMemberService extends IService<UcenterMember> {
 
     //登录的方法
-    String login(UcenterMember member);
+    String login(LoginVo loginvo);
 
     //注册的方法
     void register(RegisterVo registerVo);
+
+
 }

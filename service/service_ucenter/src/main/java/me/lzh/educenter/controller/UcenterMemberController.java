@@ -1,9 +1,12 @@
 package me.lzh.educenter.controller;
 
 
+import io.swagger.annotations.ApiOperation;
+import me.lzh.common.utils.JwtInfo;
 import me.lzh.common.utils.JwtUtils;
 import me.lzh.common.utils.commonResult.R;
 import me.lzh.educenter.entity.UcenterMember;
+import me.lzh.educenter.entity.vo.LoginVo;
 import me.lzh.educenter.entity.vo.MemberInfoVo;
 import me.lzh.educenter.entity.vo.RegisterVo;
 import me.lzh.educenter.service.UcenterMemberService;
@@ -32,29 +35,41 @@ public class UcenterMemberController {
     private UcenterMemberService memberService;
 
     //登录
+    @ApiOperation(value = "会员登录")
     @PostMapping("login")
-    public R loginUser(@RequestBody UcenterMember member) {
-        //member对象封装手机号和密码
-        //调用service方法实现登录
-        //返回token值，使用jwt生成
-        String token = memberService.login(member);
-        return R.ok().data("token",token);
+    public R login(@RequestBody LoginVo loginVo){
+        String token = memberService.login(loginVo);
+        return R.ok().data("token", token).message("登录成功");
     }
 
     //注册
+    @ApiOperation(value = "会员注册")
     @PostMapping("register")
     public R registerUser(@RequestBody RegisterVo registerVo) {
         memberService.register(registerVo);
-        return R.ok();
+        return R.ok().message("注册成功");
     }
 
     //根据token获取用户信息
     @GetMapping("getMemberInfo")
     public R getMemberInfo(HttpServletRequest request) {
         //调用jwt工具类的方法。根据request对象获取头信息，返回用户id
-        String memberId = JwtUtils.getMemberIdByJwtToken(request);
-        //查询数据库根据用户id获取用户信息
+        JwtInfo memberIdByJwtToken = JwtUtils.getMemberIdByJwtToken(request);
+        String memberId =memberIdByJwtToken.getId();
+                //查询数据库根据用户id获取用户信息
         UcenterMember member = memberService.getById(memberId);
+        MemberInfoVo memberInfoVo = new MemberInfoVo();
+        BeanUtils.copyProperties(member,memberInfoVo);
+        return R.ok().data("userInfo",memberInfoVo);
+    }
+
+    //根据用户id获取用户信息
+    @ApiOperation(value = "根据用户id获取用户信息 个人中心用")
+    @PostMapping("getUserInfo/{id}")
+    public R getUserInfo(@PathVariable String id) {
+
+        UcenterMember member = memberService.getById(id);
+        //把member对象里面值复制给UcenterMemberOrder对象
         MemberInfoVo memberInfoVo = new MemberInfoVo();
         BeanUtils.copyProperties(member,memberInfoVo);
         return R.ok().data("userInfo",memberInfoVo);

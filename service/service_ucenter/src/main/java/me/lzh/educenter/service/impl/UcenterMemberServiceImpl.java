@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import me.lzh.common.utils.JwtUtils;
 import me.lzh.educenter.entity.UcenterMember;
+import me.lzh.educenter.entity.vo.LoginVo;
 import me.lzh.educenter.entity.vo.RegisterVo;
 import me.lzh.educenter.mapper.UcenterMemberMapper;
 import me.lzh.educenter.service.UcenterMemberService;
@@ -31,10 +32,10 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
     private RedisTemplate<String,String> redisTemplate;
     //登录的方法
     @Override
-    public String login(UcenterMember member) {
+    public String login(LoginVo loginvo) {
         //获取登录手机号和密码
-        String mobile = member.getMobile();
-        String password = member.getPassword();
+        String mobile = loginvo.getMobile();
+        String password = loginvo.getPassword();
 
         //手机号和密码非空判断
         if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)) {
