@@ -2,6 +2,7 @@ package me.lzh.educenter.controller;
 
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import me.lzh.common.utils.JwtInfo;
 import me.lzh.common.utils.JwtUtils;
 import me.lzh.common.utils.commonResult.R;
@@ -83,5 +84,18 @@ public class UcenterMemberController {
         MemberInfoVoOrder userInfo = new MemberInfoVoOrder();
         BeanUtils.copyProperties(member,userInfo);
         return userInfo;
+    }
+
+    //查询某天用户注册数
+    @ApiOperation(value = "查询某天用户注册数")
+    @GetMapping("countRegister/{day}")
+    public R countRegister(
+            @ApiParam(name = "day", value = "具体日期：2020-10-10", required = true)
+            @PathVariable String day){
+
+        Integer count = memberService.countRegisterDay(day);
+
+        return R.ok().data("countRegister",count);
+
     }
 }

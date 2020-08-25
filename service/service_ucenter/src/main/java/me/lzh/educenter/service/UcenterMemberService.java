@@ -21,5 +21,6 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     //注册的方法
     void register(RegisterVo registerVo);
 
-
+    //查询某天用户注册数
+    Integer countRegisterDay(String day);
 }
