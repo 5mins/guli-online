@@ -29,7 +29,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/eduservice/edu-comment")
-@CrossOrigin
+//@CrossOrigin
 @Slf4j
 public class EduCommentController {
 

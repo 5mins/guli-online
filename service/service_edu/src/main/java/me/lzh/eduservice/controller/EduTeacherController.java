@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/eduservice/teacher")
 @Slf4j
-@CrossOrigin  //解决跨域
+//@CrossOrigin  //解决跨域
 public class EduTeacherController {
 
 
